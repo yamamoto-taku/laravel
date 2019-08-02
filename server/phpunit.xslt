@@ -216,11 +216,32 @@ Default value: 0 (no)
 		</tr>
 		<xsl:apply-templates select="//testsuite"/>
 	</table>
-
-	<xsl:apply-templates select="//testsuite[count(testsuite) = 0]" mode="details"/>
+    <xsl:apply-templates select="//testsuite[testsuite[count(testsuite) = 0]]" mode="details"/>
+    <xsl:apply-templates select="//testsuite[count(testsuite) = 0]" mode="details"/>
 
 </xsl:template>
 
+    <xsl:template match="//testsuite[testsuite[count(testsuite) = 0]]" mode="details">
+        <xsl:variable name="testname" select="@name" />
+
+        <xsl:choose>
+            <xsl:when test="count(testcase) &gt; 0 and ( $show_success_detail = 1 or ( $show_success_detail = 0 and ( @failures &gt; 0 or @errors &gt; 0 ) ) )">
+
+                <h4 id="{$testname}"><xsl:value-of select="@name"/></h4>
+                <table>
+                    <tr class="top">
+                        <th>Test name</th>
+                        <th>Assertions</th>
+                        <th>Time</th>
+                    </tr>
+                    <xsl:apply-templates select="testcase"/>
+                </table>
+                <p class="backlink"><a href="#summary"><span>&#8613;</span> Back to summary</a></p>
+
+            </xsl:when>
+            <xsl:otherwise></xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
 
 <xsl:template match="//testsuite">
 	<xsl:variable name="hasfailures">
