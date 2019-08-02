@@ -74,6 +74,7 @@ Default value: 0 (no)
 	}
 	table td, table th {
 		padding: 0.2em 1em 0.3em 1em;
+        border-bottom: 1px solid #000000;
 	}
 	table th {
 		text-align: left;
@@ -206,6 +207,7 @@ Default value: 0 (no)
 	<table id="summary">
 		<tr class="top">
 			<th>Name</th>
+            <th>testCase</th>
 			<th>Tests</th>
 			<th>Assertions</th>
 			<th>Failures</th>
@@ -266,6 +268,11 @@ Default value: 0 (no)
 			<th><xsl:value-of select="@name"/></th>
 				</xsl:otherwise>
 			</xsl:choose>
+            <td>
+                <xsl:for-each select="testcase">
+                    <xsl:value-of select="@name"/><br></br>
+                </xsl:for-each>
+            </td>
 
 			<td class="nr{$passes}"><xsl:value-of select="@tests"/></td>
 			<td class="nr{$passes}"><xsl:value-of select="@assertions"/></td>
@@ -279,6 +286,7 @@ Default value: 0 (no)
 
 		<tr class="test-file">
 			<th><xsl:value-of select="@name"/></th>
+            <td></td>
 			<td class="nr{$passes}"><xsl:value-of select="@tests"/></td>
 			<td class="nr{$passes}"><xsl:value-of select="@assertions"/></td>
 			<td class="nr{$hasfailures}"><xsl:value-of select="@failures"/></td>
