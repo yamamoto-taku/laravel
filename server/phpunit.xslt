@@ -257,7 +257,7 @@ Default value: 0 (no)
 	<xsl:variable name="testname" select="@name" />
 
 	<xsl:choose>
-		<xsl:when test="count(testsuite) = 0">
+        <xsl:when test="(count(testsuite[testsuite]) = 0 and count(testcase) != 0)">
 
 		<tr class="single-test">
 			<xsl:choose>
@@ -274,8 +274,19 @@ Default value: 0 (no)
                 </xsl:for-each>
             </td>
 
-			<td class="nr{$passes}"><xsl:value-of select="@tests"/></td>
-			<td class="nr{$passes}"><xsl:value-of select="@assertions"/></td>
+            <xsl:choose>
+            <xsl:when test="count(testcase) = 1">
+                <td class="nr{$passes}"><xsl:value-of select="count(testcase)"/></td>
+                <td class="nr{$passes}"><xsl:value-of select="testcase/attribute::assertions"/></td>
+            </xsl:when>
+            </xsl:choose>
+
+            <xsl:choose>
+            <xsl:when test="count(testcase) &gt; 1">
+                <td class="nr{$passes}"><xsl:value-of select="@tests"/></td>
+                <td class="nr{$passes}"><xsl:value-of select="@assertions"/></td>
+            </xsl:when>
+            </xsl:choose>
 			<td class="nr{$hasfailures}"><xsl:value-of select="@failures"/></td>
 			<td class="nr{$haserrors}"><xsl:value-of select="@errors"/></td>
 			<td class="time{$isslow}"><xsl:value-of select="@time"/></td>
