@@ -22,3 +22,5 @@ ENV PATH $PATH:/composer/vendor/bin
 WORKDIR /var/www/html
 
 RUN composer global require "laravel/installer"
+
+RUN apt-get -y install xsltproc
