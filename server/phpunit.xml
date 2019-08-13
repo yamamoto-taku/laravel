@@ -33,4 +33,7 @@
     <logging>
         <log type="junit" target="./tests/log/logfile.xml"/>
     </logging>
+    <extensions>
+        <extension class="Tests\Extension\TestRunnerExtension"/>
+    </extensions>
 </phpunit>
