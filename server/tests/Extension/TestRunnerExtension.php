@@ -44,7 +44,7 @@ final class TestRunnerExtension implements BeforeTestHook
     }
 
     /**
-     * 複数のクラスにまたがって試験した場合は個別のテストケースの実行文を合わせて作成する。
+     * 複数のクラスにまたがって試験した場合は個別のテストクラスも実行する。
      * @throws \ReflectionException
      */
     private function multiClassTestReport()
@@ -57,7 +57,7 @@ final class TestRunnerExtension implements BeforeTestHook
 
         foreach ($this->classList as $className) {
             $reflection = new \ReflectionClass($className);
-            file_put_contents($this->testedFileList, 'vendor/bin/phpunit ' . $reflection->getFileName() . PHP_EOL, FILE_APPEND);
+            exec('vendor/bin/phpunit ' . $reflection->getFileName());
         }
     }
 
