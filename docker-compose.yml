@@ -41,12 +41,3 @@ services:
       - PMA_PASSWORD=root
     ports:
       - 8888:80
-
-  jenkins:
-    image: jenkins/jenkins
-    container_name: jenkins
-    ports:
-      - 8080:8080
-      - 50000:50000
-    volumes:
-      - ./docker/jenkins/jenkins_home:/var/jenkins_home
